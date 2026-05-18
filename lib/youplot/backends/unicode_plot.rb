@@ -47,6 +47,7 @@ module YouPlot
           # If there is only one series.use the line number for label.
           params.title ||= headers[0] if headers
           labels = Array.new(series[0].size) { |i| (i + 1).to_s }
+          raw_values = series[0]
           values = series[0].map(&:to_f)
         else
           # If there are 2 or more series...
@@ -61,17 +62,26 @@ module YouPlot
           end
           params.title ||= headers[y_col] if headers
           labels = series[x_col]
+          raw_values = series[y_col]
           values = if count
                      series[y_col].map(&:to_i)
                    else
                      series[y_col].map(&:to_f)
                    end
         end
-        # If all values are integers, display without decimal points (#44)
-        if values.all? { |v| v.finite? && v == v.to_i }
-          values = values.map(&:to_i)
-        end
+        values = values.map(&:to_i) if count || integer_display_values?(values, raw_values)
         ::UnicodePlot.barplot(labels, values, **params.to_hc)
+      end
+
+      # True only for integer literals: "3" => true, "3.0" => false.
+      def integer_display_values?(values, raw_values)
+        values.all? { |v| v.finite? && v == v.to_i } &&
+          raw_values.all? { |v| integer_literal?(v) }
+      end
+
+      def integer_literal?(value)
+        # Matches "3" and "-12", but not "3.0".
+        value.to_s.match?(/\A[+-]?\d+\z/)
       end
 
       def histogram(data, params)

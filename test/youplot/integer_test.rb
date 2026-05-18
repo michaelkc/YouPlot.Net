@@ -40,4 +40,10 @@ class YouPlotIntegerTest < Test::Unit::TestCase
     YouPlot::Command.new(['bar']).run
     assert_equal fixture('integer-barplot.txt'), @stderr_file.read
   end
+
+  test :barplot_float_values do
+    $stdin = File.open(File.expand_path('../fixtures/integer-like-float.tsv', __dir__), 'r')
+    YouPlot::Command.new(['bar']).run
+    assert_equal fixture('integer-like-float-barplot.txt'), @stderr_file.read
+  end
 end
