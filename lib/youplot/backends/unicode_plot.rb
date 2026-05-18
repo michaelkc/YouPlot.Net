@@ -67,6 +67,10 @@ module YouPlot
                      series[y_col].map(&:to_f)
                    end
         end
+        # If all values are integers, display without decimal points (#44)
+        if values.all? { |v| v.finite? && v == v.to_i }
+          values = values.map(&:to_i)
+        end
         ::UnicodePlot.barplot(labels, values, **params.to_hc)
       end
 
