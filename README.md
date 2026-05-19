@@ -35,6 +35,8 @@ conda install -c conda-forge compilers
 gem install youplot
 ```
 
+:crystal_ball: [YouPlot2](https://github.com/red-data-tools/YouPlot2) - Experimental project with pre-built binaries
+
 ## Quick Start
 
 <img alt="barplot" src="https://user-images.githubusercontent.com/5798442/101999903-d36a2d00-3d24-11eb-9361-b89116f44122.png" width=160> <img alt="histogram" src="https://user-images.githubusercontent.com/5798442/101999820-21cafc00-3d24-11eb-86db-e410d19b07df.png" width=160> <img alt="scatter" src="https://user-images.githubusercontent.com/5798442/101999827-27284680-3d24-11eb-9903-551857eaa69c.png" width=160> <img alt="density" src="https://user-images.githubusercontent.com/5798442/101999828-2abbcd80-3d24-11eb-902c-2f44266fa6ae.png" width=160> <img alt="boxplot" src="https://user-images.githubusercontent.com/5798442/101999830-2e4f5480-3d24-11eb-8891-728c18bf5b35.png" width=160>
