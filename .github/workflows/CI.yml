@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - runtime: win-x64
+            runs-on: windows-latest
+            exe: uplot.exe
+          - runtime: linux-x64
+            runs-on: ubuntu-latest
+            exe: uplot
+
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Run tests
+        run: dotnet test src/YouPlotNet.Tests/YouPlotNet.Tests.csproj --configuration Release
+
+      - name: Publish
+        run: >
+          dotnet publish src/ConsoleHost/ConsoleHost.csproj
+          --configuration Release
+          --runtime ${{ matrix.runtime }}
+          --self-contained true
+          -p:PublishSingleFile=true
+          --output publish
+
+      - name: Create zip (Windows)
+        if: matrix.runtime == 'win-x64'
+        run: Compress-Archive -Path publish/${{ matrix.exe }} -DestinationPath "${{ github.sha }}-${{ matrix.runtime }}.zip"
+
+      - name: Create zip (Linux)
+        if: matrix.runtime == 'linux-x64'
+        run: zip "${{ github.sha }}-${{ matrix.runtime }}.zip" publish/${{ matrix.exe }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.sha }}-${{ matrix.runtime }}
+          path: ${{ github.sha }}-${{ matrix.runtime }}.zip
