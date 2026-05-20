@@ -1,0 +1,1 @@
+type lineplot.csv | ..\uplot.exe line -d, -w 50 -h 15 -t AirPassengers --xlim 1950,1960 --ylim 0,600

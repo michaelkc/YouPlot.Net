@@ -1,0 +1,12 @@
+global using System;
+global using System.Collections.Generic;
+global using System.Globalization;
+global using System.IO;
+global using System.Linq;
+global using System.Text;
+global using Xunit;
+global using YouPlotNet.UnicodePlot;
+global using YouPlotNet.UnicodePlot.Canvas;
+global using YouPlotNet.YouPlot;
+global using YouPlotNet.YouPlot.Backends;
+global using static YouPlotNet.Tests.TestHelpers;

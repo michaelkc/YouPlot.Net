@@ -1,0 +1,1 @@
+type histogram.csv | ..\uplot.exe hist --nbins 20

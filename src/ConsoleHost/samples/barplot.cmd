@@ -1,0 +1,1 @@
+type barplot.csv | ..\uplot.exe bar -d, -t "Areas of the world's Major Landmasses"

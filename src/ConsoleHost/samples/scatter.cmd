@@ -1,0 +1,1 @@
+type scatter.csv | ..\uplot.exe scatter -H -t IRIS

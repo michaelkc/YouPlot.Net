@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ConsoleHost/ConsoleHost.csproj" />
+  <Project Path="YouPlotNet.Tests/YouPlotNet.Tests.csproj" />
+  <Project Path="YouPlotNet/YouPlotNet.csproj" />
+</Solution>
