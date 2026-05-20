@@ -31,10 +31,16 @@ public sealed class Command
         if (ReferenceEquals(options.Pass, Console.Out)) options.Pass = _stdout;
 
         // Handle help: null command (no args) → stderr; explicit "help" → stdout
-        if (command == "help")
+        if (command == "help" && !_parser.ShowHelp)
         {
             var helpOut = rawCommand is null ? _stderr : _stdout;
             helpOut.WriteLine(YouPlotModule.HelpText);
+            return;
+        }
+
+        if (_parser.ShowHelp)
+        {
+            _stdout.WriteLine(YouPlotModule.CommandHelpText(command));
             return;
         }
 

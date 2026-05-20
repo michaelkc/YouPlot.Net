@@ -5,6 +5,7 @@ namespace YouPlotNet.YouPlot;
 public sealed class Parser
 {
     public string? Command { get; private set; }
+    public bool ShowHelp { get; private set; }
     public Options Options { get; } = new();
     public Parameters Params { get; } = new();
     public string? ConfigFile { get; private set; }
@@ -74,7 +75,7 @@ public sealed class Parser
                     else Params.Nbins = int.Parse(ValueOrNext(), CultureInfo.InvariantCulture);
                     break;
                 case "--names": Options.ColorNames = true; break;
-                case "--help": Command ??= "help"; break;
+                case "--help": ShowHelp = true; Command ??= "help"; break;
                 case "--version": Command = "version"; break;
             }
         }
